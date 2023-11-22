@@ -1,4 +1,3 @@
-import 'package:avatar_maker/components/avatar_render.dart';
 import 'package:avatar_maker/components/color_selection.dart';
 import 'package:avatar_maker/components/name_selection.dart';
 import 'package:avatar_maker/components/shape_selection.dart';
@@ -55,17 +54,12 @@ class AvatarMaker extends StatelessWidget {
             debugPrint('function triggered: ${state.color.toString()}');
             avatarCubitContext.updateStates(state.copyThis(color: color));
           }
-          // void changeName(String name) {
-          //   debugPrint('input: $name');
-          //   avatarCubitContext.updateStates(state.copyThis(name: name));
-          // }
+
           return Scaffold(
             appBar: AppBar(
               toolbarHeight: 200,
               title: Center(
-                child: Container(
-
-                  child: Stack(
+                child: Stack(
                     alignment: Alignment.center,
                     children: [
                       Icon(
@@ -73,17 +67,35 @@ class AvatarMaker extends StatelessWidget {
                         size: 200,
                         color: state.color,
                       ),
-                      Text(
-                        state.name,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-
-                        ),
-                      )
+                      Stack(
+                        children: <Widget>[
+                          Text(
+                            state.name,
+                            style: TextStyle(
+                              fontSize: 30,
+                              letterSpacing: 3,
+                              fontWeight: FontWeight.bold,
+                              foreground: Paint()
+                                ..style = PaintingStyle.stroke
+                                ..strokeWidth = 7
+                                ..color = Colors.black,
+                            ),
+                          ),
+                          Text(
+                            state.name,
+                            style: const TextStyle(
+                              fontSize: 30,
+                              letterSpacing: 3,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
                     ]
                   ),
-                ),
-            ),),
+              ),
+            ),
             bottomNavigationBar: BottomAppBar(
               height: 320,
               child: Column(children: [
@@ -105,10 +117,11 @@ class AvatarMaker extends StatelessWidget {
                 :
                 state.action == "ShapeChange" ?
                   ShapeSelection(
+                    currentIcon: state.shape,
                     callback: changeIcon,
                   )
                 :
-                  ColorSelection(callback: changeColor,)
+                  ColorSelection(callback: changeColor, currentColor: state.color,)
               ]
             ), 
               

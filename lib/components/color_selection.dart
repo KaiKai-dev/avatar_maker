@@ -1,10 +1,10 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class ColorSelection extends StatelessWidget {
   final Function(Color color) callback;
+  final Color currentColor;
   ColorSelection({
+    required this.currentColor,
     required this.callback,
     super.key
   });
@@ -23,17 +23,28 @@ class ColorSelection extends StatelessWidget {
       scrollDirection: Axis.horizontal,
        child: Center(
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: colorList.map(
             (value) => GestureDetector(
               onTap: () {
                 callback(value);
               },
-              child: Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: value
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  width: 50,
+                  height: 50,
+                
+                  decoration: BoxDecoration(
+                    color: value,
+                    border: Border.all(
+                      
+                    ),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(5)
+                    ),
+                  ),
                 ),
               ),
             )

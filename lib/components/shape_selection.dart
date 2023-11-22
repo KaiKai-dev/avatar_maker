@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class ShapeSelection extends StatelessWidget {
   final Function(IconData icon) callback;
+  final IconData currentIcon;
   ShapeSelection({
+    required this.currentIcon,
     required this.callback,
     super.key
   });
@@ -23,11 +25,20 @@ class ShapeSelection extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: iconList.map(
-          (value) => GestureDetector(
-            onTap: () {
-              callback(value);
-            },
-            child: Icon(value),
+          (value) => Container(
+            margin: EdgeInsets.all(currentIcon == value ? 0 : 1),
+            decoration:  currentIcon == value ? BoxDecoration(
+                border: Border.all(
+                  width: 1
+                ),
+                borderRadius: const BorderRadius.all(Radius.circular(5)),
+            ) : const BoxDecoration(),
+            child: GestureDetector(
+              onTap: () {
+                callback(value);
+              },
+              child: Icon(value),
+            ),
           )
         ).toList(),
       ),

@@ -11,7 +11,7 @@ class AvatarCubit extends Cubit<AvatarState> {
     emit(
       AvatarData(
         color: Colors.red, 
-        shape: Icons.abc, 
+        shape: Icons.shield, 
         name: 'KaiKai', 
         action: 'NameChange',
       )
